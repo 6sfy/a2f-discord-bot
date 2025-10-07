@@ -1,5 +1,5 @@
 const jsSHA = require('jssha');
-
+const paternotp = /^[a-z0-9]{4}( [a-z0-9]{4}){7}$/;
 function dec2hex(s) {
     return (s < 15.5 ? '0' : '') + Math.round(s).toString(16);
 }
@@ -68,3 +68,4 @@ module.exports = {
     generateTOTP,
     formatSecret
 };
+
