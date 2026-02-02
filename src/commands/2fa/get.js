@@ -12,14 +12,14 @@ module.exports = {
                 .setAutocomplete(true)),
 
     async execute(interaction, client) {
-        if (!client.db.get(`whitelist_${interaction.user.id}`) && !client.db.get(`owners_${interaction.user.id}`)) {
+        if (!await client.db.get(`whitelist_${interaction.user.id}`) && !await client.db.get(`owners_${interaction.user.id}`)) {
             return interaction.reply({
                 content: '▸ ❌ **Vous n\'avez pas la permission d\'utiliser cette commande.**',
                 ephemeral: true
             });
         }
 
-        const userApps = client.db.get(`2fa_${interaction.user.id}`) || [];
+        const userApps = await client.db.get(`2fa_${interaction.user.id}`) || [];
         
         if (userApps.length === 0) {
             return interaction.reply({
@@ -51,7 +51,7 @@ module.exports = {
     },
 
     async autocomplete(interaction, client) {
-        const userApps = client.db.get(`2fa_${interaction.user.id}`) || [];
+        const userApps = await client.db.get(`2fa_${interaction.user.id}`) || [];
         const focusedValue = interaction.options.getFocused().toLowerCase();
         const filtered = userApps
             .filter(app => app.name.toLowerCase().startsWith(focusedValue))

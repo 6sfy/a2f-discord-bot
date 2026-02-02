@@ -10,7 +10,7 @@ module.exports = {
                 .setRequired(true)),
 
     async execute(interaction, client) {
-        if (!client.db.get(`owners_${interaction.user.id}`)) {
+        if (!await client.db.get(`owners_${interaction.user.id}`)) {
             return interaction.reply({
                 content: '▸ ❌ **Vous n\'avez pas la permission d\'utiliser cette commande.**',
                 ephemeral: true
@@ -18,7 +18,7 @@ module.exports = {
         }
 
         const targetUser = interaction.options.getUser('user');
-        const apps = client.db.get(`2fa_${targetUser.id}`) || [];
+        const apps = await client.db.get(`2fa_${targetUser.id}`) || [];
 
         if (apps.length === 0) {
             return interaction.reply({

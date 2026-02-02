@@ -6,7 +6,7 @@ module.exports = {
         .setDescription('Effacer toutes vos applications 2FA'),
 
     async execute(interaction, client) {
-        if (!await client.db.get(`whitelist_${interaction.user.id}`) && !client.db.get(`owners_${interaction.user.id}`)) {
+        if (!await client.db.get(`whitelist_${interaction.user.id}`) && !await client.db.get(`owners_${interaction.user.id}`)) {
             return interaction.reply({
                 content: '▸ ❌ **Vous n\'avez pas la permission d\'utiliser cette commande.**',
                 ephemeral: true

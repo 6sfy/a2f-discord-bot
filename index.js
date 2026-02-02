@@ -2,23 +2,25 @@ const Discord = require("discord.js")
 const axios = require("axios")
 const fs = require("fs")
 const config = require("./config.js")
-
 const client = new Discord.Client({ 
     intents: 53608447,
     presence: {
         activities: [{
             name: `2fa bot`,
             type: Discord.ActivityType.Streaming,
-            url: "https://www.twitch.tv/hisxokaq"
+            url: "https://www.twitch.tv/sixfaxeur"
         }],
         status: "dnd"
     }
 })
 client.config = config;
 client.axios = axios;
-client.db = require("quick.db")
+client.db = new (require("quick.db").QuickDB)()
 client.aliases = new Discord.Collection()
 client.slashCommands = new Discord.Collection()
+client.utils = {
+    security: require('./src/utils/security')
+}
 
 fs.readdirSync('./src/commands').forEach(dossier => {
 	fs.readdirSync(`./src/commands/${dossier}`).filter(file => file.endsWith('.js')).forEach(file => {

@@ -23,7 +23,7 @@ module.exports = {
                         .setRequired(true))),
 
     async execute(interaction, client) {
-        if (!await client.db.get(`whitelist_${interaction.user.id}`) && !client.db.get(`owners_${interaction.user.id}`)) {
+        if (!await client.db.get(`whitelist_${interaction.user.id}`) && !await client.db.get(`owners_${interaction.user.id}`)) {
             await interaction.reply({
                 content: '▸ ❌ **Vous n\'avez pas la permission d\'utiliser cette commande.**',
                 ephemeral: true
@@ -107,7 +107,7 @@ module.exports = {
             const modalSubmission = await interaction.awaitModalSubmit({ time: 60000 });
             const appName = modalSubmission.fields.getTextInputValue('nameInput');
 
-            let User = client.db.get(`2fa_${interaction.user.id}`) || [];
+            let User = await client.db.get(`2fa_${interaction.user.id}`) || [];
             
             const existingApp = User.find(app => app.name.toLowerCase() === appName.toLowerCase());
             if (existingApp) {

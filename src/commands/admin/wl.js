@@ -10,7 +10,7 @@ module.exports = {
             .setRequired(true)),
 
     async execute(interaction, client) {
-        if (!client.db.get(`owners_${interaction.user.id}`)) {
+        if (!await client.db.get(`owners_${interaction.user.id}`)) {
             return interaction.reply({
                 content: '▸ ❌ Vous n\'avez pas la permission d\'utiliser cette commande.',
                 ephemeral: true
